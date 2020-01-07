@@ -3,39 +3,47 @@ package com.yq.leetcode;
 import java.util.List;
 
 public class Question_139 {
+    //dp
     public boolean wordBreak(String s, List<String> wordDict) {
-        if (wordDict.size() == 0)
-            return false;
-        if (s.equals(""))
-            return true;
-        String total = "";
-        for (String tem:wordDict)
-            total += tem;
-        for (int k = 0;k<s.length();k++)
-            if (!total.contains(s.substring(k,k+1)))
-                return false;
-        int[] l = new int[s.length()];
-        int num = 0;
-        int i = 0, j = 0;
-        while (true) {
-            if (j+wordDict.get(i).length()<=s.length()&&s.substring(j, j+wordDict.get(i).length()).contains(wordDict.get(i))) {
-                j += wordDict.get(i).length();
-                if (j == s.length())
-                    return true;
-                l[num] = i;
-                num++;
-                i = 0;
-            } else {
-                i++;
-                while (i == wordDict.size()) {
-                    if (num == 0)
-                        return false;
-                    num--;
-                    j -= wordDict.get(l[num]).length();
-                    i = l[num]+1;
+
+        int[] dp = new int[s.length()];
+        dp[0] = 0;
+        for (int i = 0;i<s.length();i++){
+            for (int j = i+1;j<s.length()+1;j++){
+                if (i>0&&dp[i-1] == 0)
+                    break;
+                for (int k = 0;k<wordDict.size();k++){
+                    if (s.substring(i,j ).equals(wordDict.get(k)))
+                        dp[j-1] = 1;
                 }
             }
         }
+        if (dp[s.length()-1] == 1)
+            return true;
+        else
+            return false;
 
     }
+
+    //回溯
+    public boolean wordBreakDP(String s, List<String> wordDict){
+
+        for (int i = 0;i<wordDict.size();i++){
+            if (s.length()<wordDict.get(i).length()){
+                if (i < wordDict.size()-1)
+                    continue;
+                else
+                    return false;
+            }
+            if (s.substring(0,wordDict.get(i).length() ).equals(wordDict.get(i))){
+                if (s.length() == wordDict.get(i).length())
+                    return true;
+                else if (wordBreakDP(s.substring(wordDict.get(i).length(),s.length()),wordDict))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
 }
