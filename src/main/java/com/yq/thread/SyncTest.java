@@ -9,25 +9,26 @@ package com.yq.thread;
 public class SyncTest {
     private static final Object obj = new Object();
 
-    public void syn1() throws InterruptedException{
-        synchronized (obj){
-            Thread.sleep(10000);
-            System.out.println(Thread.currentThread().getName()+".syn1()");
-        }
-    }
-    public void syn2() throws InterruptedException{
-
-        synchronized (obj){
-            //Thread.sleep(10000);
-            System.out.println(Thread.currentThread().getName()+".syn2()");
+    public void syn1() throws InterruptedException {
+        synchronized (obj) {
+            Thread.sleep(1000);
+            System.out.println(Thread.currentThread().getName() + ".syn1()");
         }
     }
 
-    public void syn3() throws InterruptedException{
+    public void syn2() throws InterruptedException {
 
-        synchronized (this){
+        synchronized (obj) {
             //Thread.sleep(10000);
-            System.out.println(Thread.currentThread().getName()+".syn3()");
+            System.out.println(Thread.currentThread().getName() + ".syn2()");
+        }
+    }
+
+    public void syn3() throws InterruptedException {
+
+        synchronized (this) {
+            //Thread.sleep(10000);
+            System.out.println(Thread.currentThread().getName() + ".syn3()");
         }
     }
 }
