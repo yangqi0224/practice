@@ -1,6 +1,5 @@
 package com.yq.practice;
 
-import com.sun.istack.internal.NotNull;
 import org.junit.Test;
 
 public class B extends A {
