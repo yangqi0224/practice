@@ -14,6 +14,20 @@ public class ListNum {
     List<Integer> newList = new ArrayList<>();
     List<Integer> tmpList = new ArrayList<>();
 
+    public static void main(String[] args) {
+        long s = System.currentTimeMillis();
+        f(35);
+        long e = System.currentTimeMillis();
+        System.out.println(e - s);
+    }
+    static int f(int x){
+        int s = 0;
+        while ( x -- > 0){
+            s += f(x);
+        }
+        return Math.max(s , 1);
+    }
+
     @Before
     public void init(){
 
